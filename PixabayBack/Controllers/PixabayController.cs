@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PixabayBack.Helpers;
+using PixabayBack.Models;
 using System;
+using System.Text.Json.Serialization;
 using ConfigurationManager = PixabayBack.Helpers.ConfigurationManager;
 
 namespace PixabayBack.Controllers
@@ -10,17 +13,27 @@ namespace PixabayBack.Controllers
     public class PixabayController : ControllerBase
     {
 
+        private readonly PixabayHelper _pixabayHelper;
+        public PixabayController(PixabayHelper helper) 
+        { 
+            _pixabayHelper = helper;
+        }
+
         [HttpGet]
         [Route("getImages")]
-        public async Task<ActionResult<string>> GetJson([FromQuery(Name = "promt")] string promt)
+        public async Task<ActionResult<PixabayResponce>> GetImages([FromQuery(Name = "promt")] string promt)
         {
-            HttpClient client = new HttpClient();
-
-            string url = $"https://pixabay.com/api/?key={ConfigurationManager.AppSettings["PixabayApiKey"]}&q={promt}&image_type=photo&per_page=3";
-
-            string response = await client.GetStringAsync(url);
-
-            return response;
+            try
+            {
+                PixabayResponce responce = await _pixabayHelper.GetImagesByPromt(promt);
+                return Ok(responce);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+            
         }
     }
 }
+    
