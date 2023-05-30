@@ -13,6 +13,10 @@ code {
 }
 .card{
   margin-top: 100px;
+  transition: 500ms ease;
+}
+.card:hover{
+  transform: scale(1.1);
 }
 .card img{
   width: 350px;
@@ -30,13 +34,16 @@ code {
   border: 1px solid transparent;
   font-size: 20px;
   padding-left: 5px;
+  background-color: #D9D9D9;
 }
 .btn-search{
   margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 25px;
   padding: 5px 60px;
   border: 1px solid transparent;
-  transition: 500ms ease
+  transition: 500ms ease;
+  background-color: #D9D9D9;
 }
 .btn-search:hover{
   transform: scale(1.1);
