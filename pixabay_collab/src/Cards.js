@@ -12,7 +12,7 @@ export default class Cards extends Component {
     return (
       <div className='cards-container'>
         {this.props.data.map(el=>(
-            <Card key={el.id} id={el.id} img={el.previewURL}></Card>
+            <Card key={el.id} id={el.id} img={el.webformatURL}></Card>
         ))}
       </div>
     )
