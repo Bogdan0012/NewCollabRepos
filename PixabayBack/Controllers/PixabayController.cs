@@ -34,6 +34,22 @@ namespace PixabayBack.Controllers
             }
             
         }
+
+        [HttpGet]
+        [Route("getImageByNamePageAndPerPage")]
+        public async Task<ActionResult<PixabayResponce>> GetImagesByNamePageAndPerPage(string promt, int page, int perPage)
+        {
+            try
+            {
+                PixabayResponce responce = await _pixabayHelper.GetImagesByNamePageAndPerPage(promt, page, perPage);
+                return Ok(responce);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+
+        }
     }
 }
     

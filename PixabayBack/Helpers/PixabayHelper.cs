@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 using PixabayBack.Models;
 
 namespace PixabayBack.Helpers
@@ -16,7 +17,7 @@ namespace PixabayBack.Helpers
             _urlHead = "https://pixabay.com/api/";
             _key = ConfigurationManager.AppSettings["PixabayApiKey"];
             _promtType = "photo";
-            _perPage = "3";
+            _perPage = "5";
         }
 
         /// <summary>
@@ -27,6 +28,19 @@ namespace PixabayBack.Helpers
         public async Task<PixabayResponce> GetImagesByPromt(string promt)
         {
             string url = $"{_urlHead}?key={_key}&q={promt}&image_type={_promtType}&per_page={_perPage}";
+
+            string response = await _httpClient.GetStringAsync(url);
+            if (string.IsNullOrEmpty(response))
+                throw new NullReferenceException("Content from api is null or empty");
+
+            PixabayResponce obj = JsonConvert.DeserializeObject<PixabayResponce>(response);
+
+            return obj ?? throw new NullReferenceException($"Cannot deserialize string to type {typeof(PixabayResponce)}");
+        }
+
+        public async Task<PixabayResponce> GetImagesByNamePageAndPerPage(string promt, int page, int perPage)
+        {
+            string url = $"{_urlHead}?key={_key}&q={promt}&image_type={_promtType}&per_page={perPage}&page={page}";
 
             string response = await _httpClient.GetStringAsync(url);
             if (string.IsNullOrEmpty(response))
