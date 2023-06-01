@@ -17,7 +17,7 @@ namespace PixabayBack.Helpers
             _urlHead = "https://pixabay.com/api/";
             _key = ConfigurationManager.AppSettings["PixabayApiKey"];
             _promtType = "photo";
-            _perPage = "5";
+            _perPage = "3";
         }
 
         /// <summary>
