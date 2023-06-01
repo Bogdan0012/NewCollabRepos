@@ -4,15 +4,14 @@ import Card from './Card'
 export default class Cards extends Component {
     constructor(props){
         super(props)
-        this.state={
-            data:props.data
-        }
+       
     }
   render() {
     return (
       <div className='cards-container'>
-        {this.props.data.map(el=>(
-            <Card key={el.id} id={el.id} img={el.webformatURL}></Card>
+        {this.props.data.map((el,index)=>(
+        
+            <Card key={el.id} id={el.id} index={index} deleteCard={this.props.deleteCard} img={el.webformatURL}></Card>
         ))}
       </div>
     )
